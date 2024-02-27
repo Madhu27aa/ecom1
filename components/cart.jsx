@@ -1,44 +1,31 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti';
-import toast from 'react-hot-toast';
-
+import { useRouter } from 'next/router'; // Import useRouter hook
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
-
+import { makePayment } from './MakePaymentComponent';
+import CheckoutPage from './CheckoutPage';
 
 const Cart = () => {
   const cartRef = useRef();
+  const router = useRouter(); // Initialize useRouter hook
+  const [showCheckoutPage, setShowCheckoutPage] = useState(false); // State to track whether to show checkout page or not
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
 
   const handleCheckout = async () => {
-    const stripe = await getStripe();
-
-    const response = await fetch('/api/stripe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(cartItems),
-    });
-
-    if(response.statusCode === 500) return;
-    
-    const data = await response.json();
-
-    toast.loading('Redirecting...');
-
-    stripe.redirectToCheckout({ sessionId: data.id });
+    // Navigate to the checkout page
+    router.push('/checkout');
   }
 
   return (
     <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
         <button
-        type="button"
-        className="cart-heading"
-        onClick={() => setShowCart(false)}>
+          type="button"
+          className="cart-heading"
+          onClick={() => setShowCart(false)}>
           <AiOutlineLeft />
           <span className="heading">Your Cart</span>
           <span className="cart-num-items">({totalQuantities} items)</span>
@@ -71,13 +58,15 @@ const Cart = () => {
                 </div>
                 <div className="flex bottom">
                   <div>
-                  <p className="quantity-desc">
-                    <span className="minus" onClick={() => toggleCartItemQuanitity(item._id, 'dec') }>
-                    <AiOutlineMinus />
-                    </span>
-                    <span className="num" onClick="">{item.quantity}</span>
-                    <span className="plus" onClick={() => toggleCartItemQuanitity(item._id, 'inc') }><AiOutlinePlus /></span>
-                  </p>
+                    <p className="quantity-desc">
+                      <span className="minus" onClick={() => toggleCartItemQuanitity(item._id, 'dec')}>
+                        <AiOutlineMinus />
+                      </span>
+                      <span className="num">{item.quantity}</span>
+                      <span className="plus" onClick={() => toggleCartItemQuanitity(item._id, 'inc')}>
+                        <AiOutlinePlus />
+                      </span>
+                    </p>
                   </div>
                   <button
                     type="button"
@@ -99,7 +88,7 @@ const Cart = () => {
             </div>
             <div className="btn-container">
               <button type="button" className="btn" onClick={handleCheckout}>
-                Pay with Stripe
+                Checkout
               </button>
             </div>
           </div>
@@ -109,4 +98,4 @@ const Cart = () => {
   )
 }
 
-export default Cart
+export default Cart;
