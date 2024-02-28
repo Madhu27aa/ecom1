@@ -70,6 +70,101 @@ width: 100%;
   font-weight: bold; /* Add this line for bold text */
   text-decoration: underline; /* Add this line for underlined text */
 }
+.checkout-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.billing-details {
+  flex: 1;
+  padding: 5px;
+  border-right: 1px solid #ccc;
+}
+
+.form-group {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.form-group label:after {
+  content: '*';
+  margin-bottom: 5px;
+  font-size: 16px; /* Increase font size for labels */
+
+}
+
+.form-group input {
+  font-size: 16px; /* Increase font size for labels */
+
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Adjust the margin between the label and input */
+.form-group label,
+.form-group input {
+  margin-right: 10px; /* Adjust as needed */
+}
+
+.form-group input[type="date"],
+.form-group input[type="time"] {
+  margin-right: 10px;
+}
+
+.form-group.phone-email {
+  flex-direction: row;
+}
+
+.form-group.recipient {
+  flex-direction: row;
+}
+
+.form-group.address {
+  flex-direction: row;
+}
+
+.form-group.city-zipcode {
+  flex-direction: row;
+}
+
+
+/* Adjust spacing between label and input for specific form groups */
+.form-group.phone-email label,
+.form-group.recipient label,
+.form-group.city-zipcode label {
+  margin-right: 10px;
+}
+
+.summary-box {
+  flex: 0.4;
+  padding: 50px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.billing-details h2 {
+  margin-bottom: 20px; /* Add space below the heading */
+}
+
+.pay-online-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pay-online-btn:hover {
+  background-color: #0056b3;
+}
 
 .cart-wrapper{
   width: 100vw;
