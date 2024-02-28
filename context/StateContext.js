@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/router'; // Import useRouter hook
 
 const Context = createContext();
 
@@ -9,6 +10,7 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
+  const router = useRouter(); // Initialize useRouter hook
 
   let foundProduct;
   let index;
@@ -35,6 +37,8 @@ export const StateContext = ({ children }) => {
     }
 
     toast.success(`${qty} ${product.name} added to the cart.`);
+    router.push('/cart');
+
   } 
 
   const onRemove = (product) => {
@@ -47,22 +51,25 @@ export const StateContext = ({ children }) => {
   }
 
   const toggleCartItemQuanitity = (id, value) => {
-    foundProduct = cartItems.find((item) => item._id === id)
-    index = cartItems.findIndex((product) => product._id === id);
-    const newCartItems = cartItems.filter((item) => item._id !== id)
+    const foundProduct = cartItems.find((item) => item._id === id);
+    const index = cartItems.findIndex((product) => product._id === id);
+    const newCartItems = [...cartItems];
 
-    if(value === 'inc') {
-      setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ]);
-      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
-      setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
-    } else if(value === 'dec') {
-      if (foundProduct.quantity > 1) {
-        setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ]);
-        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price)
-        setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
-      }
+    if (value === 'inc') {
+        newCartItems[index] = { ...foundProduct, quantity: foundProduct.quantity + 1 };
+        setCartItems(newCartItems);
+        setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+    } else if (value === 'dec') {
+        if (foundProduct.quantity > 1) {
+            newCartItems[index] = { ...foundProduct, quantity: foundProduct.quantity - 1 };
+            setCartItems(newCartItems);
+            setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+            setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+        }
     }
-  }
+};
+
 
   const incQty = () => {
     setQty((prevQty) => prevQty + 1);

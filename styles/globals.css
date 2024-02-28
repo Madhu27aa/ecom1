@@ -71,6 +71,85 @@ width: 100%;
   text-decoration: underline; /* Add this line for underlined text */
 }
 
+.cart-wrapper{
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+}
+.cart-container{
+  width: 60%;
+  background-color: white;
+  padding: 40px 10px;
+  position: relative;
+}
+
+.product-container {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.cart-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-container {
+  width: 60%;
+  background-color: white;
+  padding: 40px 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-bottom {
+  width: 100%;
+  background-color: white;
+  padding: 30px 65px;
+}
+
+.total {
+  padding: 20px 30px 85px;
+}
+
+.total-price {
+  padding: 2px 65px;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Add margin between cart-bottom and btn-container */
+}
+
+.btn-container button {
+  width: 100%; /* Make both buttons full width */
+  margin-top: 5px; /* Add some vertical spacing between buttons */
+  box-sizing: border-box; /* Include padding and border in the button's total width */
+  background-color:green
+}
+
+.btn-container link continue-shopping {
+  width: 100%; /* Make both buttons full width */
+  margin-top: 10px; /* Add some vertical spacing between buttons */
+  box-sizing: border-box; /* Include padding and border in the button's total width */
+  background-color:yellow
+}
+
 .cart-icon{
   font-size: 25px;
   color: gray;
@@ -267,26 +346,6 @@ text-align: end;
   font-size: 14px;
   font-weight: 300;
 }
-.cart-wrapper{
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 100;
-  /* will-change: transform; */
-  transition: all 1s ease-in-out;
-
-}
-.cart-container{
-  height: 100vh;
-  width: 600px;
-  background-color: white;
-  float: right;
-  padding: 40px 10px;
-  position: relative;
-  
-}
 
 .footer-container{
   color: #324d67;
@@ -336,12 +395,8 @@ text-align: end;
 .cancel{
   cursor: pointer;
 }
-.product-container{
-  margin-top: 15px;
-  overflow: auto;
-max-height: 70vh;
-padding: 20px 10px;
-}
+
+
 .product{
   display: flex;
  gap: 30px;
@@ -384,19 +439,7 @@ padding: 20px 10px;
   background: transparent;
   border: none;
 }
-.cart-bottom{
-  position: absolute;
-  bottom: 12px;
-  right: 5px;
-width: 100%;
-padding: 30px 65px;
 
-}
-
-.btn-container{
-  width: 400px;
-  margin: auto;
-}
 .btn{
   width: 100%;
   max-width: 400px;
@@ -732,9 +775,7 @@ margin-top: 160px;
   font-size: 16px;
    color: black;
 }
-.cart-bottom{
-  padding: 30px;
-}
+
 
 .total h3{
   font-size: 20px;
