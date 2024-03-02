@@ -81,6 +81,34 @@ width: 100%;
   border-right: 1px solid #ccc;
 }
 
+/* styles.css */
+/* PaymentSuccessPage.css */
+.payment-success-card {
+  background-color: white;
+  border: lightgreen;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(14, 116, 99, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.payment-success-card-content {
+  text-align: center;
+}
+
+.payment-success-card-content h2 {
+  color: green;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.payment-success-card-content p {
+  color: #666;
+  font-size: 16px;
+}
+
+
 .form-group {
   display: flex;
   margin-bottom: 15px;

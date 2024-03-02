@@ -17,6 +17,7 @@ const Home = ({ products, bannerData }) => (
     <FooterBanner footerBanner={bannerData && bannerData[0]} />
   </div>
 );
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 export const getServerSideProps = async () => {
   const query = '*[_type == "product"]';
