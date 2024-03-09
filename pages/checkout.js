@@ -1,5 +1,3 @@
-// pages/checkout.js
-
 import React from 'react';
 import CheckoutPage from '../components/CheckoutPage';
 

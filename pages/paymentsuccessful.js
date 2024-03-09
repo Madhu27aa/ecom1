@@ -1,5 +1,3 @@
-// pages/checkout.js
-
 import React from 'react';
 import PaymentSuccessful from '../components/PaymentSuccessful';
 

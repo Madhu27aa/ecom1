@@ -13,8 +13,6 @@ const ProductDetails = ({ product, products }) => {
 
   const handleBuyNow = () => {
     onAdd(product, qty);
-    
-    // Navigate to the CheckoutPage
     router.push('/checkout');
   }
 

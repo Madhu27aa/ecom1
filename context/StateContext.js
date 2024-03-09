@@ -35,10 +35,7 @@ export const StateContext = ({ children }) => {
       
       setCartItems([...cartItems, { ...product }]);
     }
-
-    toast.success(`${qty} ${product.name} added to the cart.`);
     router.push('/cart');
-
   } 
 
   const onRemove = (product) => {

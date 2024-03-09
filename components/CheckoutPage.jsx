@@ -3,7 +3,7 @@ import { useStateContext } from '../context/StateContext';
 import { router } from 'next/router'; // Import useRouter hook
 
 const CheckoutPage = () => {
-  const { totalPrice} = useStateContext();
+  const { totalPrice, cartItems, totalQuantities} = useStateContext();
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [formData, setFormData] = useState({
     'delivery-date': '',
@@ -17,6 +17,41 @@ const CheckoutPage = () => {
     'city': '',
     'pincode': '',
   });
+
+  const baseUrl = "http://localhost:3000";
+
+  const sendEmail = async (e) => {
+
+    const  message = "Thanks for placing the order, We appreciatate your business"
+
+    let dataSend = {
+      email: formData.email,
+      subject: "Your order with Dessert Stop has been placed successfully",
+      message: message,
+      cartData: cartItems,
+      quantity : totalQuantities,
+      customerDetails: formData
+    };
+
+    try {
+      const response = await fetch(`${baseUrl}/api/sendEmail`, {
+        method: "POST",
+        body: JSON.stringify(dataSend),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        alert("Email sent successfully !");
+      } else {
+        alert("Failed to send email.");
+      }
+    } catch (error) {
+      console.log("errpr" + error);
+      console.error("Failed to send email:", error);
+      alert("Failed to send email.");
+    }
+  };
 
   useEffect(() => {
     const loadRazorpay = async () => {
@@ -47,7 +82,9 @@ const CheckoutPage = () => {
       },
       handler: function(response) {
         // alert(response.razorpay_payment_id);
-        setPaymentSuccess(true);
+        // sendConfirmationEmail(formData['email'], 'Payment Confirmation', 'Order details and shipping information...');
+        // sendConfirmationEmail('ramiyaseshaiah@gmail.com', 'Payment Confirmation', 'Order details...');
+        sendEmail()
         router.push('/paymentsuccessful');
 
       }
