@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useStateContext } from '../context/StateContext';
 import { router } from 'next/router'; // Import useRouter hook
+import RadioButtonGroup from './RadioButtonGroup';
 
 const CheckoutPage = () => {
-  const { totalPrice, cartItems, totalQuantities} = useStateContext();
+  const { totalPrice, cartItems, totalQuantities, deliveryPincode, deliveryCharges} = useStateContext();
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('pickup');
   const [formData, setFormData] = useState({
     'delivery-date': '',
     'delivery-time': '',
@@ -15,8 +17,13 @@ const CheckoutPage = () => {
     'recipient-phone': '',
     'address': '',
     'city': '',
-    'pincode': '',
+    'pincode': deliveryPincode,
   });
+
+
+  function handleChange(event) {
+    setSelectedOption(event.target.value);
+  }
 
   const baseUrl = "http://localhost:3000";
 
@@ -60,7 +67,8 @@ const CheckoutPage = () => {
       script.async = true;
       document.body.appendChild(script);
     };
-
+    console.log("incheckout", deliveryPincode);
+    console.log("incheckout", deliveryCharges);
     loadRazorpay();
 
   }, []);
@@ -102,7 +110,7 @@ const CheckoutPage = () => {
     };
   
     const handlePayment = () => {
-      const requiredFields = ['delivery-date', 'delivery-time', 'full-name', 'phone', 'email', 'recipient-name', 'recipient-phone', 'address', 'city', 'pincode'];
+      const requiredFields = ['delivery-date', 'delivery-time', 'full-name', 'phone', 'email', 'recipient-name', 'recipient-phone', 'address', 'city'];
       const isValid = requiredFields.every(field => formData[field].trim() !== '');
       if (isValid) {
         razorPay();
@@ -126,7 +134,7 @@ const CheckoutPage = () => {
             required
             onChange={handleInputChange}
           />
-          <label htmlFor="delivery-time">Delivery Tim</label>
+          <label htmlFor="delivery-time">Delivery Time</label>
           <input
             type="time"
             id="delivery-time"
@@ -188,6 +196,7 @@ const CheckoutPage = () => {
             onChange={handleInputChange}
           />
         </div>
+        {selectedOption === 'delivery' && (
         <div className="form-group">
           <label htmlFor="address" required>Address</label>
           <input
@@ -199,6 +208,8 @@ const CheckoutPage = () => {
             onChange={handleInputChange}
           />
         </div>
+        )}
+         {selectedOption === 'delivery' && (
         <div className="form-group">
           <label htmlFor="city">City</label>
           <input
@@ -214,11 +225,11 @@ const CheckoutPage = () => {
             type="number"
             id="pincode"
             name="pincode"
-            placeholder="Enter Pincode"
-            required
-            onChange={handleInputChange}
-          />
+            value= {deliveryPincode}
+            readOnly
+            />
         </div>
+         )}
       </div>
       <div className="summary-box">
         <h2>Order Summary</h2>
@@ -226,14 +237,17 @@ const CheckoutPage = () => {
           <span>Subtotal</span>
           <span>₹{totalPrice}</span>
         </div>
+        {selectedOption === 'delivery' && (
         <div className="summary-item">
           <span>Delivery Charges</span>
-          <span>₹5.00</span>
+          <span>₹{deliveryCharges}</span>
         </div>
+        )}
         <div className="summary-item">
           <span>Total Price</span>
-          <span>₹{totalPrice + 5.00}</span>
+          <span>₹{totalPrice + deliveryCharges}</span>
         </div>
+        <RadioButtonGroup selectedOption={selectedOption} handleChange={handleChange} />
         <button className="pay-online-btn" onClick={handlePayment}>Pay Online</button>
       </div>
     </div>

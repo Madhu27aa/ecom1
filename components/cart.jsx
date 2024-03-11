@@ -7,6 +7,7 @@ import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
 import { makePayment } from './MakePaymentComponent';
 import CheckoutPage from './CheckoutPage';
+import { Navbar } from '.';
 
 const CartItem = React.memo(({ item, toggleCartItemQuanitity, onRemove }) => (
   <div className="product">
@@ -77,8 +78,7 @@ const Cart = () => {
                 type="button"
                 onClick={() => setShowCart(false)}
                 className="btn"
-              >
-                Continue Shopping
+              > Continue Shopping
               </button>
             </Link>
           </div>
@@ -96,8 +96,8 @@ const Cart = () => {
          <div className="total-price"> <h3>₹{totalPrice}</h3></div>
        </div>
        <div className="btn-container">
-         <button type="button" className="btn" onClick={handleCheckout}>Checkout</button>
-         <Link href="/"><button type="button" className="btn">Continue Shopping</button></Link>
+         <button type="button" className="btn checkout" onClick={handleCheckout}>Place Order</button>
+         <Link href="/"><button type="button" className="btn continue-shopping">Continue Shopping</button></Link>
        </div>
      </div>
      

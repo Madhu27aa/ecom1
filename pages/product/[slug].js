@@ -9,11 +9,26 @@ const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const [cakeMessage, setCakeMessage] = useState('');
+  const [deliveryPincode, setDeliveryPincode] = useState('');
   const router = useRouter(); // Initialize useRouter hook
 
   const handleBuyNow = () => {
-    onAdd(product, qty);
+    if(!deliveryPincode) {
+      alert('Please select a pincode.');
+      return;
+    }
+    onAdd(product, qty, deliveryPincode, cakeMessage);
     router.push('/checkout');
+  }
+
+  const handleCart = () => {
+    if(!deliveryPincode) {
+      alert('Please select a pincode.');
+      return;
+    }
+    onAdd(product, qty, deliveryPincode, cakeMessage);
+    router.push('/cart');
   }
 
   return (
@@ -43,8 +58,32 @@ const ProductDetails = ({ product, products }) => {
           <h4>Details: </h4>
           <p>{details}</p>
           <p className="price">₹{price}</p>
+          <div className="cake-message">
+            <label htmlFor="cakeMessage">Cake Message:</label>
+            <input
+              type="text"
+              id="cakeMessage"
+              value={cakeMessage}
+              onChange={(e) => setCakeMessage(e.target.value)}
+            />
+          </div>
+          <div className="delivery-pincode">
+            <label htmlFor="deliveryPincode">Delivery Pincode:</label>
+            <select
+              id="deliveryPincode"
+              value={deliveryPincode}
+              onChange={(e) => setDeliveryPincode(e.target.value)}
+              required
+            >
+              <option value="">Select Pincode</option>
+              <option value="600040">600040</option>
+              <option value="456789">456789</option>
+              <option value="789012">789012</option>
+              {/* Add more options as needed */}
+            </select>
+          </div>
           <div className="buttons">
-            <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>Add to Cart</button>
+            <button type="button" className="add-to-cart" onClick={handleCart}>Add to Cart</button>
             <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button>
           </div>
         </div>

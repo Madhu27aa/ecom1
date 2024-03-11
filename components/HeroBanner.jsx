@@ -10,7 +10,6 @@ const HeroBanner = ({ heroBanner }) => {
         <p className="beats-solo">{heroBanner.smallText}</p>
         <h3>{heroBanner.midText}</h3>
         <h3>{heroBanner.largeText1}</h3>
-        <img src={urlFor(heroBanner.image)} alt="headphones" className="hero-banner-image" />
 
         <div>
           <Link href={`/product/${heroBanner.product}`}>

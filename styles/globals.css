@@ -72,14 +72,63 @@ width: 100%;
 }
 .checkout-container {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .billing-details {
-  flex: 1;
-  padding: 5px;
-  border-right: 1px solid #ccc;
+  flex: 1 1 70%; /* 70% for the left box */
+  padding: 0 20px; /* Add some padding for spacing */
 }
+
+.summary-box {
+  flex: 1 1 30%; /* 30% width for the right side */
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 20px; /* Add some padding for spacing */
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.summary-box h2 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top : 20px;
+  font-size: 0.9rem;
+}
+
+.summary-item span:first-child {
+  font-weight: bold;
+}
+
+.summary-item span:last-child {
+  color: #333;
+}
+
+.pay-online-btn {
+  background-color: green;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: auto; /* Push the button to the bottom */
+}
+
+.pay-online-btn:hover {
+  background-color: #0056b3;
+}
+
+
 
 /* styles.css */
 /* PaymentSuccessPage.css */
@@ -92,6 +141,45 @@ width: 100%;
   max-width: 400px;
   margin: 0 auto;
   size: 50px;
+}
+
+/* CSS for the cake message text box */
+.cake-message {
+  margin-top: 20px;
+}
+
+.cake-message label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.cake-message input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.radio-group label {
+  display: block; /* Ensure each label is on a new line */
+  margin-bottom: 1px; /* Add space between each option */
+}
+
+/* CSS for the delivery pincode options */
+.delivery-pincode {
+  margin-top: 20px;
+}
+
+.delivery-pincode label:after {
+  content: '*';
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.delivery-pincode select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .payment-success-card-content {
@@ -168,111 +256,69 @@ width: 100%;
   margin-right: 10px;
 }
 
-.summary-box {
-  flex: 0.4;
-  padding: 50px;
+.cart-wrapper {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.summary-item {
+.cart-container {
+  flex: 1 1 70%; /* 70% for the cart container */
+  border-bottom: none; /* Remove the bottom border */
+  padding-bottom: 0 20px; /* Add some padding at the bottom */
+}
+
+.cart-bottom {
+  flex: 1 1 30%; /* 30% for the cart bottom */
+  padding: 20px; /* Add some padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-bottom h1 {
+  margin-bottom: 10px;
+}
+
+.total {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
-.billing-details h2 {
-  margin-bottom: 20px; /* Add space below the heading */
+
+.total h3 {
+  font-weight: bold;
 }
 
-.pay-online-btn {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.pay-online-btn:hover {
-  background-color: #0056b3;
-}
-
-.cart-wrapper{
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: flex-end;
-}
-.cart-container{
-  width: 60%;
-  background-color: white;
-  padding: 40px 10px;
-  position: relative;
-}
-
-.product-container {
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.cart-wrapper {
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.cart-container {
-  width: 60%;
-  background-color: white;
-  padding: 40px 10px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.cart-bottom {
-  width: 100%;
-  background-color: white;
-  padding: 30px 65px;
-}
-
-.total {
-  padding: 20px 30px 85px;
-}
-
-.total-price {
-  padding: 2px 65px;
+.total-price h3 {
+  color: #333;
 }
 
 .btn-container {
-  width: 100%;
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px; /* Add margin between cart-bottom and btn-container */
+  flex-direction: column; /* Display buttons in a column */
+  gap: 5px; /* Add some vertical spacing between buttons */
 }
 
-.btn-container button {
-  width: 100%; /* Make both buttons full width */
-  margin-top: 5px; /* Add some vertical spacing between buttons */
-  box-sizing: border-box; /* Include padding and border in the button's total width */
-  background-color:green
+
+.btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-.btn-container link continue-shopping {
-  width: 100%; /* Make both buttons full width */
-  margin-top: 10px; /* Add some vertical spacing between buttons */
-  box-sizing: border-box; /* Include padding and border in the button's total width */
-  background-color:yellow
+.btn.checkout {
+  background-color: green;
 }
+
+.btn.continue-shopping {
+  background-color: rgb(193, 205, 115);
+  color: #51410b;
+}
+
 
 .cart-icon{
   font-size: 25px;
@@ -788,6 +834,19 @@ margin-top: 160px;
 }
 
 @media screen and (max-width:800px) {
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+  .checkout-container {
+    flex-direction: column; /* Change to a column layout */
+  }
+
+  .summary-box {
+    flex: 1 1 100%; /* Full width for the summary box */
+    margin-top: 20px; /* Add margin to separate from the billing details */
+  }
   .hero-banner-container{
     height: 560px;
   }
@@ -927,4 +986,5 @@ margin-top: 160px;
   width: 300px;
   margin: auto;
 }
+
 }
